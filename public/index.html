@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulário</title>
+</head>
+
+<body>
+
+    <form id="meuForm">
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" name="nome"><br><br>
+
+        <label for="idade">Idade:</label>
+        <input type="number" id="idade" name="idade"><br><br>
+
+        <button type="button" onclick="enviarDados()">Enviar</button>
+    </form>
+    <div id="mostra"></div>
+    <script>
+        function enviarDados() {
+            var nome = document.getElementById('nome').value;
+            var idade = document.getElementById('idade').value;
+
+            fetch('http://localhost:3000/inserir', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ nome: nome, idade: idade })
+            })
+                .then(response => response.json())
+                .then(data => console.log(data))
+                .catch((error) => console.error('Erro:', error));
+        }
+
+    </script>
+
+</body>
+
+</html>
